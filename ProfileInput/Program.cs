@@ -6,6 +6,7 @@ float height; // = 172.0f;
 bool isMarried; // = false;
 // string[] favoriteFoods = new string[] { "마라탕", "피자", "치킨" };
 string[] favoriteFoods = new string[3];
+string[] favoriteGames = new string[3];
 
 Console.WriteLine("이름을 입력해주세요.");
 name = Console.ReadLine();
@@ -20,6 +21,7 @@ Console.WriteLine("기혼 여부를 입력해주세요(true / false)");
 isMarried = bool.Parse(Console.ReadLine());
 
 int count = 0;
+bool isBoomeok = false;
 while (count < 3)
 {
     Console.WriteLine("좋아하는 음식을 입력해주세요. (끝내기 : q)");
@@ -29,8 +31,34 @@ while (count < 3)
         break;
     }
     favoriteFoods[count] = input;
+    if (input == "탕수육")
+    {
+        Console.WriteLine("부먹인가요? (true / false)");
+        isBoomeok = bool.Parse(Console.ReadLine());
+    }
     count++;
 }
+
+count = 0;
+string lolTier = string.Empty;
+while (count < 3)
+{
+    Console.WriteLine("좋아하는 게임을 입력해주세요. (끝내기 : q)");
+    string input = Console.ReadLine();
+    if (input == "q")
+    {
+        break;
+    }
+    favoriteGames[count] = input;
+    if (input == "롤")
+    {
+        Console.WriteLine("티어는 어디인가요??");
+        lolTier = Console.ReadLine();
+    }
+    count++;
+}
+
+
 
 Console.Clear();
 
@@ -45,6 +73,25 @@ Console.WriteLine($"기혼 여부 : {isMarried}");
 for (int i = 0; i < favoriteFoods.Length; i++) // i++ => i = i + 1;
 {
     Console.WriteLine($"좋아하는 음식{(i + 1)} : {favoriteFoods[i]}");
+    if (favoriteFoods[i] == "탕수육")
+    {
+        if (isBoomeok == true)
+        {
+            Console.WriteLine("부먹이 근본이지!");
+        }
+        else
+        {
+            Console.WriteLine("찍먹..?");
+        }
+    }
+}
+for (int i = 0; i < favoriteGames.Length; i++) // i++ => i = i + 1;
+{
+    Console.WriteLine($"좋아하는 게임{(i + 1)} : {favoriteGames[i]}");
+    if (favoriteGames[i] == "롤")
+    {
+        Console.WriteLine($"티어는 {lolTier} 입니다.");
+    }
 }
 
 if (age < 20)
@@ -99,9 +146,6 @@ if (isMarried == true && gender == Gender.Male)
 {
     Console.WriteLine("가장이시네요");
 }
-
-
-// 과제. 
 
 enum Gender
 {
