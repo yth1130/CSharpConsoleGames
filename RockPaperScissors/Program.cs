@@ -1,12 +1,12 @@
 ﻿Console.Clear();
-﻿Console.WriteLine("가위 바위 보 중에 선택해 주세요.");
+Console.WriteLine("가위 바위 보 중에 선택해 주세요.");
 Console.WriteLine("1.바위 2.보자기 3.가위");
 string input = Console.ReadLine();
-int userNumber = int.Parse(input) - 1;
+int userNumber = int.Parse(input);
 SelectType userSelect = (SelectType)userNumber;
 
 Random rand = new Random();
-int aiNumber = rand.Next(0, 3); // 0, 1, 2
+int aiNumber = rand.Next(0, 3) + 1; // 0, 1, 2 => 1, 2, 3
 SelectType aiSelect = (SelectType)aiNumber;
 
 Console.WriteLine($"유저 : {PrintSelectType(userSelect)}");
@@ -93,7 +93,7 @@ enum JudgeResult
 
 enum SelectType
 {
-    Rock,
+    Rock = 1,
     Paper,
     Scissors,
 }
