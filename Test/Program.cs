@@ -142,6 +142,35 @@
 #endregion
 
 #region 3주차.
+//-----------------------------------------------------------------
+// Player player = new Player();
+// player.GetDamage(10);
+Character player = new Player(); // 다형성(상위 클래스의 변수에 하위 클래스의 인스턴스 할당)
+player.GetInfo(); // 다형성(하위 클래스에서 오버라이딩된 메서드 호출)
+
+class Character
+{
+    private int hp; // 캡슐화(정보은닉)
+
+    public void GetDamage(int value)
+    {
+        hp -= value;
+    }
+    public virtual void GetInfo() // virtual : 하위 클래스에서 오버라이딩을 가능하게 함.
+    {
+        Console.WriteLine("캐릭터");
+    }
+}
+class Player: Character
+{
+    private int currentExp;
+    private int levelupExp;
+    public override void GetInfo()
+    {
+        Console.WriteLine("플레이어");
+    }
+}
+//-----------------------------------------------------------------
 #endregion
 
 #region 4주차.
