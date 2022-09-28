@@ -143,6 +143,7 @@
 
 #region 3주차.
 //-----------------------------------------------------------------
+// 1. 클래스, 캡슐화, 상속, 다형성.
 // Player player = new Player();
 // player.GetDamage(10);
 Character player = new Player(); // 다형성(상위 클래스의 변수에 하위 클래스의 인스턴스 할당)
@@ -150,9 +151,16 @@ player.GetInfo(); // 다형성(하위 클래스에서 오버라이딩된 메서�
 
 class Character
 {
-    private int hp; // 캡슐화(정보은닉)
+    private int hp; // 멤버 변수(필드), private으로 숨김 => 캡슐화(정보은닉)
+    public int Hp
+    {
+        get
+        {
+            return hp;
+        }
+    }
 
-    public void GetDamage(int value)
+    public void GetDamage(int value) //멤버 함수(메서드)
     {
         hp -= value;
     }
@@ -165,6 +173,13 @@ class Player: Character
 {
     private int currentExp;
     private int levelupExp;
+
+    public Player()
+    {
+        currentExp = 0;
+        levelupExp = 100;
+    }
+    
     public override void GetInfo()
     {
         Console.WriteLine("플레이어");
