@@ -142,53 +142,215 @@
 #endregion
 
 #region 3주차.
-//-----------------------------------------------------------------
-// 1. 클래스, 캡슐화, 상속, 다형성.
-// Player player = new Player();
-// player.GetDamage(10);
-Character player = new Player(); // 다형성(상위 클래스의 변수에 하위 클래스의 인스턴스 할당)
-player.GetInfo(); // 다형성(하위 클래스에서 오버라이딩된 메서드 호출)
+// //-----------------------------------------------------------------
+// // 1. 클래스, 캡슐화, 상속, 다형성.
+// // Player player = new Player();
+// // player.GetDamage(10);
+// Character player = new Player(); // 다형성(상위 클래스의 변수에 하위 클래스의 인스턴스 할당)
+// player.GetInfo(); // 다형성(하위 클래스에서 오버라이딩된 메서드 호출)
 
-class Character
-{
-    private int hp; // 멤버 변수(필드), private으로 숨김 => 캡슐화(정보은닉)
-    public int Hp
-    {
-        get
-        {
-            return hp;
-        }
-    }
+// class Character
+// {
+//     private int hp; // 멤버 변수(필드), private으로 숨김 => 캡슐화(정보은닉)
+//     public int Hp
+//     {
+//         get
+//         {
+//             return hp;
+//         }
+//     }
 
-    public void GetDamage(int value) //멤버 함수(메서드)
-    {
-        hp -= value;
-    }
-    public virtual void GetInfo() // virtual : 하위 클래스에서 오버라이딩을 가능하게 함.
-    {
-        Console.WriteLine("캐릭터");
-    }
-}
-class Player: Character
-{
-    private int currentExp;
-    private int levelupExp;
+//     public void GetDamage(int value) //멤버 함수(메서드)
+//     {
+//         hp -= value;
+//     }
+//     public virtual void GetInfo() // virtual : 하위 클래스에서 오버라이딩을 가능하게 함.
+//     {
+//         Console.WriteLine("캐릭터");
+//     }
+// }
+// class Player: Character
+// {
+//     private int currentExp;
+//     private int levelupExp;
 
-    public Player()
-    {
-        currentExp = 0;
-        levelupExp = 100;
-    }
-    
-    public override void GetInfo()
-    {
-        Console.WriteLine("플레이어");
-    }
-}
-//-----------------------------------------------------------------
+//     public Player()
+//     {
+//         currentExp = 0;
+//         levelupExp = 100;
+//     }
+
+//     public override void GetInfo()
+//     {
+//         Console.WriteLine("플레이어");
+//     }
+// }
+// //-----------------------------------------------------------------
 #endregion
 
 #region 4주차.
+//-----------------------------------------------------------------
+// 1.클래스 복습.
+Car sonata = new Car("소나타");
+Car k5 = new Car("K5");
+sonata.PrintInfo();
+Car.PrintCategory();
+
+// Car rayEngine = new EngineCar("레이");
+// Car rayElectric = new ElectricCar("레이");
+// rayEngine.PrintInfo();
+// rayElectric.PrintInfo();
+
+// // 8. 다형성 설명. 기본 클래스의 변수에 파생 클래스의 인스턴스를 담는다.
+// Car rayEngine = new EngineCar("레이");
+// Car rayElectric = new ElectricCar("레이");
+// // 변수가 어떤 파생 클래스의 인스턴스를 담느냐에 따라 호출되는 실제 메서드가 달라짐.
+// rayEngine.Drive();
+// rayElectric.Drive();
+// Console.WriteLine(sonata.GetType());
+// Console.WriteLine(rayElectric.GetType());
+
+// sonata.MakeSound();
+
+class Car
+// 4. sealed 키워드.
+// sealed class Car
+// 6. 추상 클래스.
+// abstract class Car
+// class Car : ISoundable
+{
+    //-----------------------------------------------------------------
+    // A. 정적 멤버.
+    public const int NumberOfWheels = 4; // 정적 필드. const를 쓰면 상수. 변경 불가.
+    public static int NextProductId = 1;
+    public static void PrintCategory() // 정적 메서드.
+    {
+        Console.WriteLine("이 상품은 자동차 입니다.");
+    }
+    //-----------------------------------------------------------------
+
+    private string _name;
+    // protected string _name;
+    private int _productId;
+
+    public void PrintInfo()
+    // 5. 메서드 오버라이딩.
+    // public virtual void PrintInfo()
+    {
+        Console.WriteLine($"이 차는 {_name} 입니다.");
+    }
+    // 오버로딩.
+    public void PrintInfo(int repeat)
+    {
+        for (int i = 0; i < repeat; i++)
+        {
+            PrintInfo();
+        }
+    }
+
+    public Car(string name)
+    {
+        _name = name;
+        _productId = NextProductId;
+        NextProductId++;
+    }
+
+    // // 7.추상 메서드.
+    // public abstract void Drive();
+
+    // public void MakeSound()
+    // {
+    //     Console.WriteLine("빵빵");
+    // }
+}
+// 2. 상속.
+class EngineCar : Car
+// class EngineCar : Car, ISoundable
+{
+    private int numberOfCylinder;
+    
+    public EngineCar(string name) : base(name)
+    {
+        // 3. private멤버 접근 x
+        // _name = name;
+    }
+
+    // public override void PrintInfo()
+    // {
+    //     Console.WriteLine($"이 차는 {_name}(내연기관차) 입니다.");
+    // }
+
+    // public override void Drive()
+    // {
+    //     Console.WriteLine("엔진 시동걸기");
+    //     Console.WriteLine("엔진에 연료 주입");
+    // }
+
+    // public void MakeSound()
+    // {
+    //     Console.WriteLine("빵빵");
+    // }
+}
+// 실습.
+class ElectricCar : Car
+// class ElectricCar : Car, ISoundable
+{
+    private float capacity;
+    
+    public ElectricCar(string name) : base(name)
+    {
+    }
+
+    // 실습.
+    // public override void PrintInfo()
+    // {
+    //     Console.WriteLine($"이 차는 {_name}(전기차) 입니다.");
+    // }
+
+    // 실습.
+    // public override void Drive()
+    // {
+    //     Console.WriteLine("전원 켜기");
+    //     Console.WriteLine("전기로 모터 돌리기");
+    // }
+
+    // public void MakeSound()
+    // {
+    //     Console.WriteLine("삥삥");
+    // }
+}
+
+// // 9. 인터페이스.
+// interface ISoundable
+// {
+//     void MakeSound();
+// }
+//-----------------------------------------------------------------
+
+//-----------------------------------------------------------------
+// 10. 컬렉션.
+//-----------------------------------------------------------------
+
+// //-----------------------------------------------------------------
+// // B. 정적 클래스.
+// // System.Math
+// Console.WriteLine($"섭씨 20도 = 화씨 {TemperatureConverter.CtoF(20.0)}도");
+// Console.WriteLine($"화씨 70도 = 섭씨 {TemperatureConverter.FtoC(70.0).ToString("F0")}도");
+// static class TemperatureConverter
+// {
+//     public static double CtoF(double celsius)
+//     {
+//         double fahrenheit = (celsius * 9 / 5) + 32;
+//         return fahrenheit;
+//     }
+
+//     public static double FtoC(double fahrenheit)
+//     {
+//         double celsius = (fahrenheit - 32) * 5 / 9;
+//         return celsius;
+//     }
+// }
+// //-----------------------------------------------------------------
 #endregion
 
 #region 5주차.
