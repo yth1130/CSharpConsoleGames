@@ -46,6 +46,12 @@ abstract class Character
         _def = def;
     }
 
+    public void Reset()
+    {
+        _hpCur = _hpMax;
+        _mpCur = _mpMax;
+    }
+
     public void Attack(Character target)
     {
         Console.WriteLine($"{_name}의 공격!");
